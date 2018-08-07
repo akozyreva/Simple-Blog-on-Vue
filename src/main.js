@@ -9,6 +9,14 @@ import store from './store'
 
 axios.defaults.baseURL = 'https://blog-9734f.firebaseio.com/blog.json';
 
+export const eventBus = new Vue({
+	methods: {
+		sendMsgToModal(msg) {
+			this.$emit('textMsg', msg);
+		}
+	}
+});
+
 Vue.use(VueRouter);
 const router = new VueRouter({
 	routes: routes,

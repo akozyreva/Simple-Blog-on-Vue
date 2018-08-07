@@ -18,21 +18,28 @@
                 <textarea class="form-control" id="description" rows="15" v-model="description"></textarea>
             </div>
             <div class="submit">
-                <button type="submit" class="btn btn-primary">Publish</button>
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Publish</button>
             </div>
         </form>
+        <app-popup></app-popup>
     </div>
 </template>
 <script>
 import axios from '../axios';
-
+import Popup from './Popup.vue'
+import { eventBus } from '../main.js';
 export default {
+    props: ['msg'],
     data() {
         return {
             title: '',
             theme: '',
-            description: ''
+            description: '',
+            myMsg: this.msg
         }
+    },
+    components: {
+        'app-popup': Popup
     },
     methods: {
         publish() {
@@ -41,8 +48,10 @@ export default {
                 theme: this.theme,
                 description: this.description
             })
-
+            this.myMsg = 'You succed';
+            eventBus.sendMsgToModal(this.myMsg);
         }
+        
     }
 }
 </script>
