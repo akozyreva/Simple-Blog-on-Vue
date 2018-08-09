@@ -29,13 +29,11 @@ import axios from '../axios';
 import Popup from './Popup.vue'
 import { eventBus } from '../main.js';
 export default {
-    props: ['msg'],
     data() {
         return {
             title: '',
             theme: '',
-            description: '',
-            myMsg: this.msg
+            description: ''
         }
     },
     components: {
@@ -48,8 +46,6 @@ export default {
                 theme: this.theme,
                 description: this.description
             })
-            this.myMsg = 'You succed';
-            eventBus.sendMsgToModal(this.myMsg);
         }
         
     }

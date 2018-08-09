@@ -9,7 +9,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         data: [],
-        article: {}
+        article: {},
+        msg: '' //message for user in popup
     },
     mutations: {
         'ADD_ARTICLE' (state, newArticle) {
@@ -51,6 +52,10 @@ export default new Vuex.Store({
             };
 
             console.log('final state of artcile', state.article)
+        },
+        'GET_MSG' (state, msg) {
+            state.msg = '';
+            state.msg = msg;
         }
     },
     actions: {
@@ -65,9 +70,13 @@ export default new Vuex.Store({
             axios.post('', article)
                 .then(res => {
                     article.id = res.data.name;
-                    commit('ADD_ARTICLE', article)
+                    commit('ADD_ARTICLE', article);
+                    commit('GET_MSG', 'Your aricle has been published!');
                 })
-                .catch(er => console.log(er))
+                .catch(er => {
+                    console.log(er)
+                    commit('GET_MSG', `Something went wrong. This is the error ${er}`)
+                })
 
         },
         getArticles: ({ commit }) => {
@@ -87,15 +96,22 @@ export default new Vuex.Store({
         deleteArticle: ({ commit }, id) => {
             axios.delete('https://blog-9734f.firebaseio.com/blog/' + id + '.json')
                 .then(res => {
-                    commit('DELETE_ARTICLE', id)
+                    commit('DELETE_ARTICLE', id);
+                    commit('GET_MSG', 'Your aricle has been deleted!');
                 })
-                .catch(er => console.log(er));
+                .catch(er => {
+                    console.log(er);
+                    commit('GET_MSG', `Something went wrong. This is the error ${er}`);
+                });
 
         }
     },
     getters: {
         countsArticle: state => {
             return state.data.length;
+        },
+        showMsg : state => {
+            return state.msg;
         },
         showArticle: state => {
             return {

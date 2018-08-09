@@ -12,7 +12,7 @@
                         <h4 class="modal-title">Message</h4>
                     </div>
                     <div class="modal-body">
-                        <p>{{ myMsg }}</p>
+                        <p>{{ showMsg }}</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -23,21 +23,16 @@
     </div>
 </template>
 <script>
-import { eventBus } from '../main.js';
-
+import { mapGetters } from 'vuex';
 export default {
-    props: ['msg'],
-    data() {
-        return {
-            myMsg: this.msg
-        }
-    },
-    created() {
-        // while created, eventBus is listener on thi Vue
+    /*created() {
+         while created, eventBus is listener on thi Vue
         eventBus.$on('textMsg', (data) => {
             this.myMsg = data;
         });
+    }*/
+    computed: {
+        ...mapGetters(['showMsg'])
     }
-
 }
 </script>

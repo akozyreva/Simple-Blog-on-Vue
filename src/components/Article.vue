@@ -4,12 +4,14 @@
         <p>{{ showArticle.title }}</p>
         <p>{{ showArticle.description }}</p>
         <p>{{ showArticle.theme }}</p>
-        <button class="btn btn-primary" @click="deleteArticle(id)">Delete article</button>
+        <button class="btn btn-primary" @click="deleteArticle(id)" data-toggle="modal" data-target="#myModal">Delete article</button>
+        <app-popup></app-popup>
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 import { mapActions } from 'vuex';
+import Popup from './Popup.vue';
 export default {
     data() {
         return {
@@ -18,6 +20,9 @@ export default {
     },
     created() {
         this.$store.dispatch('getArticle', this.id);
+    },
+     components: {
+        'app-popup': Popup
     },
     computed: {
     	...mapGetters(['showArticle'])
