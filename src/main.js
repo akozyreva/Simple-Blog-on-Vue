@@ -16,6 +16,7 @@ axios.defaults.baseURL = 'https://blog-9734f.firebaseio.com/blog.json';
 		}
 	}
 });*/
+// about hosting https://gist.github.com/TylerFisher/6127328
 
 Vue.use(VueRouter);
 const router = new VueRouter({
